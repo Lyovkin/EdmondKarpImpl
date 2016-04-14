@@ -37,16 +37,17 @@
             <h4 style="margin-left: 90px;">Путь следования из <strong>{{ $out }}</strong> в <strong>{{ $in }}</strong></h4>
         @endif
     </div>
-</div>
-<div class="row">
-    <div class="col-md-9">
-        <img src="{{ $startGraph }}" >
-       {{-- <img src="{{ $residualGraph }}" >--}}
-        @if(isset($endGraph))
-            <img src="{{ $endGraph }}" >
-        @endif
+    <div class="row">
+        <div class="col-md-9 col-md-offset-2">
+            <img src="{{ $startGraph }}" height="750px" >
+            {{-- <img src="{{ $residualGraph }}" >--}}
+            @if(isset($endGraph))
+                <img src="{{ $endGraph }}" height="750px" style="margin-left: 110px;" >
+            @endif
+        </div>
     </div>
 </div>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
