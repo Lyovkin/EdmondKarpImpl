@@ -8,7 +8,8 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="title">Алгоритм нахождения максимального потока в транспортной сети Эдмондса - Карпа.</h2>
+    <h3 class="title text-center">Алгоритм нахождения максимального потока в транспортной сети Эдмондса - Карпа.</h3>
+    <h4 class="text-center"> СШIм-15-1 Дубинина И.А.</h4>
     <hr />
     <div class="col-md-12 col-md-offset-3">
         <form class="form-inline" role="form" method="GET" action="/">
