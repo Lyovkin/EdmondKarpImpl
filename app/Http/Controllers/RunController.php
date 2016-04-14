@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Algorithms\CustomEdmondsKarp;
 use Fhaculty\Graph\Graph;
 use Graphp\Algorithms\MaxFlow\EdmondsKarp;
+use Illuminate\Http\Request;
 
 /**
  * Class RunController
@@ -16,8 +18,10 @@ class RunController extends Controller
      * @param Graph $graph
      * @return string
      */
-    public function run(Graph $graph)
+    public function run(Graph $graph, Request $request)
     {
+        $names = ['$a' =>'A', '$b'=>'B', '$c'=>'C', '$d'=>'D', '$e'=>'E', '$f'=>'F', '$g'=>'G', '$h'=>'H', '$i'=>'I'];
+
         /**
          * Создаем вершины
          */
@@ -51,38 +55,36 @@ class RunController extends Controller
         $h->createEdgeTo($i)->setCapacity(4);
         $i->createEdgeTo($g)->setCapacity(3);
 
-
         /**
          * Применяем алгоритм Эдмондса - Карпа (вершина A со стоком в G)
          */
-        $algorithm = new EdmondsKarp($a, $e);
+        if($request->input('start'))
+        $algorithm = new CustomEdmondsKarp($graph->getVertex($request->input('start')),
+            $graph->getVertex($request->input('end')));
 
-        /**
-         * Рисуем начальный граф
-         */
-        echo "<meta charset=UTF-8>";
-        echo /** @lang text */
-        "<h2 style='text-align:center;'> Алгоритм Эдмондса - Карпа</h2>";
+        $out = $request->input('start');
+        $in = $request->input('end');
 
         /**
          * Выводим максимальный поток (стоимость)
          */
-        $data = $algorithm->getFlowMax();
-        echo /** @lang text */
-        "<span style='margin: auto; display: table'>Максимальная стоимость пути: $data</span>";
+        if(isset($algorithm))
+        $max = $algorithm->getFlowMax();
 
         $graphviz = new CustomGraphViz();
-        echo /** @lang text */
-        "<p style='margin-left: 645px; font-size: 18px;'>Начальный граф &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-                                                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Конечный граф</p>";
-        echo $graphviz->createImageHtml($graph, 'padding-left:550px;');
+
+        $startGraph =  $graphviz->createImageSrc($graph);
+
 
         /**
          * Рисуем конечный граф
          */
+        if(isset($algorithm))
         $graphics = $algorithm->createGraph();
-        $endGraph = $graphviz->createImageHtml($graphics, 'margin-left:100px;');
-        echo $endGraph;
-        return null;
+        if(isset($graphics))
+        $endGraph = $graphviz->createImageSrc($graphics);
+
+        return view('index', compact('startGraph', 'residualGraph','endGraph', 'names', 'max', 'in', 'out'));
     }
+
 }
