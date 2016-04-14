@@ -84,6 +84,9 @@ class RunController extends Controller
         if(isset($graphics))
         $endGraph = $graphviz->createImageSrc($graphics);
 
+       // $graphics->
+
+
         return view('index', compact('startGraph', 'residualGraph','endGraph', 'names', 'max', 'in', 'out'));
     }
 

@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="title">Алгоритм нахождения максимальной стоимости пути Эдмондса - Карпа.</h2>
+    <h2 class="title">Алгоритм нахождения максимального потока в транспортной сети Эдмондса - Карпа.</h2>
     <hr />
     <div class="col-md-12 col-md-offset-3">
         <form class="form-inline" role="form" method="GET" action="/">
